@@ -45,14 +45,18 @@ function combine() {
     wait
 }
 
-for file in actors1.png; do
-    # assume quality level 5 PNG export so 2505 × 1500
-    convert "$file" -crop 420x720+135+220 "delegate_1_1.png" &
-    convert "$file" -crop 420x720+580+220 "delegate_2_1.png" &
-    convert "$file" -crop 420x720+1033+220 "delegate_3_1.png" &
-    convert "$file" -crop 420x720+1476+260 "crew_1_1.png" &
-    convert "$file" -crop 420x720+1900+235 "crew_1_2.png" &
+file=actors1_1.png
+# assume quality level 5 PNG export so 2505 × 1500
+convert "$file" -crop 420x720+135+220 "delegate_1_1.png" &
+convert "$file" -crop 420x720+580+220 "delegate_2_1.png" &
+convert "$file" -crop 420x720+1033+220 "delegate_3_1.png" &
+convert "$file" -crop 420x720+1476+260 "crew_1_1.png" &
+convert "$file" -crop 420x720+1900+235 "crew_1_2.png" &
 
-    # wait for background tasks to finish
-    wait
-done
+file=actors2_1.png
+convert "$file" -crop 420x720+260+290 "doctor_1.png" &
+convert "$file" -crop 420x720+833+227 "captain_1.png" &
+convert "$file" -crop 420x720+1382+359 "holo_1.png" &
+
+# wait for background tasks to finish
+wait
