@@ -49,14 +49,15 @@ if [[ "$1" = '-f' ]] ; then
     copy_into_game_dir=true
 fi
 
-created_files=''
+created_files_file=created_files.txt
+rm -f $created_files_file
 # side-effect: adds output file to created_Files list
 function crop_file() {
     local file="$1"
     local offsets="$2"
     local output="$3"
     convert "$file" -crop 420x720"$offsets" "$output"
-    created_files="$created_files $output"
+    echo "$output" >> $created_files_file
 }
 
 file=actors1_1.png
@@ -77,5 +78,5 @@ crop_file "$file" +1382+359 "holo_1.png" &
 wait
 
 if [[ -n "$copy_into_game_dir" ]] ; then
-    echo cp $created_files ../img/pictures
+    xargs -I{} cp {} ../img/pictures/ < "$created_files_file"
 fi
