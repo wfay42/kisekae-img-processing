@@ -45,18 +45,37 @@ function combine() {
     wait
 }
 
+if [[ "$1" = '-f' ]] ; then
+    copy_into_game_dir=true
+fi
+
+created_files=''
+# side-effect: adds output file to created_Files list
+function crop_file() {
+    local file="$1"
+    local offsets="$2"
+    local output="$3"
+    convert "$file" -crop 420x720"$offsets" "$output"
+    created_files="$created_files $output"
+}
+
 file=actors1_1.png
 # assume quality level 5 PNG export so 2505 × 1500
-convert "$file" -crop 420x720+135+220 "delegate_1_1.png" &
-convert "$file" -crop 420x720+580+220 "delegate_2_1.png" &
-convert "$file" -crop 420x720+1033+220 "delegate_3_1.png" &
-convert "$file" -crop 420x720+1476+260 "crew_1_1.png" &
-convert "$file" -crop 420x720+1900+235 "crew_1_2.png" &
+#convert "$file" -crop 420x720+135+220 "delegate_1_1.png" &
+crop_file "$file" +135+220 "delegate_1_1.png" &
+crop_file "$file" +580+220 "delegate_2_1.png" &
+crop_file "$file" +1033+220 "delegate_3_1.png" &
+crop_file "$file" +1476+260 "crew_1_1.png" &
+crop_file "$file" +1900+235 "crew_1_2.png" &
 
 file=actors2_1.png
-convert "$file" -crop 420x720+260+290 "doctor_1.png" &
-convert "$file" -crop 420x720+833+227 "captain_1.png" &
-convert "$file" -crop 420x720+1382+359 "holo_1.png" &
+crop_file "$file" +260+290 "doctor_1.png" &
+crop_file "$file" +833+227 "captain_1.png" &
+crop_file "$file" +1382+359 "holo_1.png" &
 
 # wait for background tasks to finish
 wait
+
+if [[ -n "$copy_into_game_dir" ]] ; then
+    echo cp $created_files ../img/pictures
+fi
