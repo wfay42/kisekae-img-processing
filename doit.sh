@@ -51,7 +51,7 @@ fi
 
 created_files_file=created_files.txt
 rm -f $created_files_file
-# side-effect: adds output file to created_Files list
+# side-effect: adds output file to created_files list
 function crop_file() {
     local file="$1"
     local offsets="$2"
@@ -60,19 +60,24 @@ function crop_file() {
     echo "$output" >> $created_files_file
 }
 
-file=actors1_1.png
-# assume quality level 5 PNG export so 2505 × 1500
-#convert "$file" -crop 420x720+135+220 "delegate_1_1.png" &
-crop_file "$file" +135+220 "delegate_1_1.png" &
-crop_file "$file" +580+220 "delegate_2_1.png" &
-crop_file "$file" +1033+220 "delegate_3_1.png" &
-crop_file "$file" +1476+260 "crew_1_1.png" &
-crop_file "$file" +1900+235 "crew_1_2.png" &
+## assume quality level 5 PNG export so 2505 × 1500
+# process files for actors1
+for num in 1 2 ; do
+    file=actors1_$num.png
+    crop_file "$file" +135+220 "delegate_1_$num.png" &
+    crop_file "$file" +580+220 "delegate_2_$num.png" &
+    crop_file "$file" +1033+220 "delegate_3_$num.png" &
+    crop_file "$file" +1476+260 "crew_1_$num.png" &
+    crop_file "$file" +1900+235 "crew_2_$num.png" &
+done
 
-file=actors2_1.png
-crop_file "$file" +260+290 "doctor_1.png" &
-crop_file "$file" +833+227 "captain_1.png" &
-crop_file "$file" +1382+359 "holo_1.png" &
+# process files for actors2
+for num in 1 2 3 4 ; do
+    file=actors2_$num.png
+    crop_file "$file" +260+290 "doctor_$num.png" &
+    crop_file "$file" +833+227 "captain_$num.png" &
+    crop_file "$file" +1382+359 "holo_$num.png" &
+done
 
 # wait for background tasks to finish
 wait
