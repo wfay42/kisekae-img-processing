@@ -53,10 +53,13 @@ created_files_file=created_files.txt
 rm -f $created_files_file
 # side-effect: adds output file to created_files list
 function crop_file() {
+    crop_file_dims "$1" 420x720"$2" "$3"
+}
+function crop_file_dims() {
     local file="$1"
     local offsets="$2"
     local output="$3"
-    convert "$file" -crop 420x720"$offsets" "$output"
+    convert "$file" -crop "$offsets" "$output"
     echo "$output" >> $created_files_file
 }
 
@@ -78,6 +81,12 @@ for num in 1 2 3 4 ; do
     crop_file "$file" +833+227 "captain_$num.png" &
     crop_file "$file" +1382+359 "holo_$num.png" &
 done
+
+# create the faces for avatars for the menu
+file=actors2_1.png
+crop_file_dims "$file" 420x420+260+290 "doctor_profile.png" &
+crop_file_dims "$file" 420x420+833+227 "captain_profile.png" &
+crop_file_dims "$file" 420x420+1382+359 "holo_profile.png" &
 
 # wait for background tasks to finish
 wait
