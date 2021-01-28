@@ -75,7 +75,7 @@ for num in 1 2 ; do
 done
 
 # process files for actors2
-for num in 1 2 3 4 ; do
+for num in 1_plain 1_open 1_angry 2 3 4 ; do
     file=actors2_$num.png
     crop_file "$file" +260+290 "doctor_$num.png" &
     crop_file "$file" +833+227 "captain_$num.png" &
@@ -83,7 +83,7 @@ for num in 1 2 3 4 ; do
 done
 
 # create the faces for avatars for the menu
-file=actors2_1.png
+file=actors2_1_plain.png
 crop_file_dims "$file" 420x420+260+290 "doctor_profile.png" &
 crop_file_dims "$file" 420x420+833+227 "captain_profile.png" &
 crop_file_dims "$file" 420x420+1382+359 "holo_profile.png" &
