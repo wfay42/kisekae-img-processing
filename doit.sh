@@ -89,8 +89,22 @@ crop_file_dims "$file" 420x420+833+227 "captain_profile.png" &
 crop_file_dims "$file" 420x420+1382+359 "holo_profile.png" &
 
 # wait for background tasks to finish
+echo "Cropping all pictures..."
 wait
 
+# resize all profile pictures
+convert doctor_profile.png -scale 144x144 doctor_profile.png &
+convert captain_profile.png -scale 144x144 captain_profile.png &
+convert holo_profile.png -scale 144x144 holo_profile.png &
+
+echo "Resizing profile pictures..."
+wait
+
+convert +append doctor_profile.png captain_profile.png holo_profile.png Profiles.png
+
 if [[ -n "$copy_into_game_dir" ]] ; then
+    echo "Copying files to game folders..."
     xargs -I{} cp {} ../img/pictures/ < "$created_files_file"
+    cp Profiles.png ../img/faces/
 fi
+echo "Done"
