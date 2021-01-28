@@ -1,6 +1,6 @@
 #!/bin/bash
 
 for file in $HOME/Desktop/*kisekae*.png ; do
-    echo $file
+    echo $(basename $file)
     mv $file .
 done
