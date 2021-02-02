@@ -1,4 +1,6 @@
 *.swp
-*.png
 .DS_Store
 created_files.txt
+
+# NOTE: PNG files are ignored normally, but are added to git LFS
+*.png
