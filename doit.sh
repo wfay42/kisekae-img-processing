@@ -65,13 +65,21 @@ function crop_file_dims() {
 
 ## assume quality level 5 PNG export so 2505 × 1500
 # process files for actors1
-for num in 1 2 3 ; do
+for num in 1 2 ; do
     file=actors1_$num.png
     crop_file "$file" +135+220 "delegate_1_$num.png" &
     crop_file "$file" +580+220 "delegate_2_$num.png" &
     crop_file "$file" +1033+220 "delegate_3_$num.png" &
     crop_file "$file" +1476+260 "crew_1_$num.png" &
     crop_file "$file" +1900+235 "crew_2_$num.png" &
+done
+
+# actors1 leaning, so different dimensions
+for num in 3 ; do
+    file=actors1_$num.png
+    crop_file "$file" +90+230 "delegate_1_$num.png" &
+    crop_file "$file" +650+220 "delegate_2_$num.png" &
+    crop_file "$file" +1262+214 "delegate_3_$num.png" &
 done
 
 # process files for actors2
