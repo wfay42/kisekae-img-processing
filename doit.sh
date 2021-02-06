@@ -75,11 +75,19 @@ for num in 1 2 ; do
 done
 
 # actors1 leaning, so different dimensions
-for num in 3 ; do
+for num in 3; do
     file=actors1_$num.png
     crop_file "$file" +90+230 "delegate_1_$num.png" &
     crop_file "$file" +650+220 "delegate_2_$num.png" &
     crop_file "$file" +1262+214 "delegate_3_$num.png" &
+done
+
+# actors1 open arms, so different dimensions
+for num in 4; do
+    file=actors1_$num.png
+    crop_file_dims "$file" 720x720+0+210 "delegate_1_$num.png" &
+    crop_file_dims "$file" 720x720+836+218 "delegate_2_$num.png" &
+    crop_file_dims "$file" 720x720+1604+218 "delegate_3_$num.png" &
 done
 
 # process files for actors2
