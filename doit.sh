@@ -124,7 +124,7 @@ convert itch-banner-big.png -scale 630x500 itch-banner.png
 
 if [[ -n "$copy_into_game_dir" ]] ; then
     echo "Copying files to game folders..."
-    xargs -I{} cp {} ../img/pictures/ < "$created_files_file"
-    cp Profiles.png ../img/faces/
+    xargs -I{} cp {} ../rpgmaker/img/pictures/ < "$created_files_file"
+    cp Profiles.png ../rpgmaker/img/faces/
 fi
 echo "Done"
