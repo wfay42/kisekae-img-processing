@@ -119,6 +119,7 @@ wait
 convert +append doctor_profile.png captain_profile.png holo_profile.png Profiles.png
 
 echo "Creating other banners..."
+crop_file_dims itch-banner-raw.png 1600x800+250+190 da-banner.png
 crop_file_dims itch-banner-raw.png 1260x1000+394+174 itch-banner-big.png
 convert itch-banner-big.png -scale 630x500 itch-banner.png
 
