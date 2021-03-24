@@ -98,6 +98,12 @@ for num in 1_plain 1_open 1_angry 1_angry_closed 1_confused 1_confused_closed ro
     crop_file "$file" +1382+359 "holo_$num.png" &
 done
 
+# process crystal ends
+crop_file_dims "actors_crystal_1.png" 1000x1440+171+38 "crystal_1.png" &
+crop_file_dims "actors_crystal_1.png" 1000x1440+1453+38 "crystal_2.png" &
+crop_file_dims "actors_crystal_2.png" 1000x1440+171+38 "crystal_3.png" &
+crop_file_dims "actors_crystal_2.png" 1000x1440+1453+38 "crystal_4.png" &
+
 # create the faces for avatars for the menu
 file=actors2_1_plain.png
 crop_file_dims "$file" 420x420+260+290 "doctor_profile.png" &
@@ -107,6 +113,11 @@ crop_file_dims "$file" 420x420+1382+359 "holo_profile.png" &
 # wait for background tasks to finish
 echo "Cropping all pictures..."
 wait
+
+convert crystal_1.png -resize 50% crystal_1.png &
+convert crystal_2.png -resize 50% crystal_2.png &
+convert crystal_3.png -resize 50% crystal_3.png &
+convert crystal_4.png -resize 50% crystal_4.png &
 
 # resize all profile pictures
 convert doctor_profile.png -scale 144x144 doctor_profile.png &
